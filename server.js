@@ -5,8 +5,6 @@ const port=3000
 app.get('/', (req,res)=>{
     res.json({msg:'hello from server'});
 })
-
-
 // Handle the POST request at /orders/:id
 app.post('/orders/:id', (req, res) => {
   const orderId = req.params.id;
