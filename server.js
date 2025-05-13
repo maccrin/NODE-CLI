@@ -1,4 +1,5 @@
 import express from "express";
+
 const app = express();
 app.use(express.json());
 const port=3000
@@ -8,8 +9,10 @@ app.get('/', (req,res)=>{
 // Handle the POST request at /orders/:id
 app.post('/orders/:id', (req, res) => {
   const orderId = req.params.id;
+  console.log('incomign body' ,req.body)
+  const price=req.body.amount
   // Send a success response
-  res.status(200).json({ message: `Order ${orderId} updated with amount` });
+  res.status(200).json({ message: `Order ${orderId} updated with amount ${price}` });
 });
 app.listen(port, () => {
     console.log(`Application is running on ${process.env.PORT ?? port}`);
