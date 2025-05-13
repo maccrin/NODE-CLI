@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import {Command} from "commander"
-import updateItem from "../src/utils.js"
+import {updateItem,addItems} from "../src/utils.js"
 const program= new Command();
 
 // Create a new Program
@@ -23,7 +23,16 @@ program.command('update')
 .argument("<ID>", "Order Id")
 .argument("<Amount>", "Order Amount")
 .action(async(id,amount)=>await updateItem(id,amount))
-program.parse()
 
- 
+ program.command('add')
+.description("add product by ID to a category")
+.argument("<CATEGORY>" ,"Product Category")
+.argument("<ID>" ,"Product ID")
+.argument("<NAME>" ,"Product Name")
+.argument("<AMOUNT>" ,"Product Amount")
+.argument("[Info...]" ,"Product info")
+.action(async(category,id,name,amount,info)=> await addItems(category,id,name,amount,info))
+
+program.parse();
+
 
