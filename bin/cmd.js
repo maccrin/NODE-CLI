@@ -1,6 +1,12 @@
 #!/usr/bin/env node
-import got from 'got'
-const API = "http://localhost:3000";
+import {Command} from "commander"
+import updateItem from "../src/utils.js"
+const program= new Command();
+
+// Create a new Program
+program.name("my-cli")
+.description("Back office for my app")
+.version("1.0.0")
 
 const usage=(msg='Back offc for my App')=>{
     console.log(`\n${msg}\n`);
@@ -13,19 +19,11 @@ if(argv.length<2){
     process.exit(1)
 }
 
-const [argID,amount]=argv
-const amt=Number(amount);
-if(isNaN(amt)){
-     usage("Error: <AMOUNT> must be a number");
-  process.exit(1);
-}
+program.command('update')
+.argument("<ID>", "Order Id")
+.argument("<Amount>", "Order Amount")
+.action(async(id,amount)=>await updateItem(id,amount))
+program.parse()
 
-try {
-  await got.post(`${API}/orders/${argID}`, {
-    json: { amount },
-  });
-  console.log(`Order ${argID} updated with amount ${amt}`);
-} catch (err) {
-  console.log(err.message);
-  process.exit(1);
-}
+ 
+
