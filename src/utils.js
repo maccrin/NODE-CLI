@@ -36,7 +36,7 @@ try{
         errorLog(`Error: <AMOUNT> must be a number`);
         process.exit(1);
     }
-    //make  apost request with Got
+    //make  a post request with Got
     await got.post(`${API}/${category}`,{
         json:{id,name,category,amount,info:info.flat().join(' ')},
         responseType:'json'
@@ -48,4 +48,21 @@ catch(error){
     errorLog(error.message);
     process.exit(1);
 }
+}
+
+//List the categories
+export function listCategoies(){
+  log("listing categories");
+  try{
+  for(const category of categories)log(category)
+  }
+  catch(error){
+logError(error.message)
+process.exit(1)
+  }
+}
+
+//List item from category
+export async function listCategoryItems(){
+
 }
